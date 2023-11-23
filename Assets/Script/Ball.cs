@@ -24,7 +24,7 @@ public class Ball : MonoBehaviour
       } 
       
       [SerializeField] private Ballcolor ballcolor;
-      [SerializeField] private MeshRenderer;
+      [SerializeField] private MeshRenderer _meshRenderer;
       
       private void Awake() 
       {
