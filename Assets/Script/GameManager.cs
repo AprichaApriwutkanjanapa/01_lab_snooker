@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [SerializeField] private int playerScore;
+    //Prop keyshortcut
+    public int PlayerScore { get; set; }
     [SerializeField] private GameObject ballPrefab;
     [SerializeField] private GameObject[] ballPositions;
 
@@ -18,6 +21,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private float xInput;
     [SerializeField] private float ballspeed;
     [SerializeField] private GameObject FollowCamera;
+    [SerializeField] private TMP_Text scoreText;
      
     // Start is called before the first frame update
     void Start()
@@ -27,21 +31,25 @@ public class GameManager : MonoBehaviour
         FollowCamera = Camera.main.gameObject;
         CameraBehindBall();
         
+        UpdateScoreText();
+        
         //set balls on the table
-        SetBalls(BallColors.White, 0);
-        SetBalls(BallColors.Red, 1);
-        SetBalls(BallColors.Yellow, 2);
-        SetBalls(BallColors.Green, 3);
-        SetBalls(BallColors.Brown, 4);
-        SetBalls(BallColors.Blue, 5);
-        SetBalls(BallColors.Pink, 6);
-        SetBalls(BallColors.Black, 7);
+        SetBalls(Ballcolor.White, 0);
+        SetBalls(Ballcolor.Red, 1);
+        SetBalls(Ballcolor.Yellow, 2);
+        SetBalls(Ballcolor.Green, 3);
+        SetBalls(Ballcolor.Brown, 4);
+        SetBalls(Ballcolor.Blue, 5);
+        SetBalls(Ballcolor.Pink, 6);
+        SetBalls(Ballcolor.Nigga, 7);
     }
 
     // Update is called once per frame
     void Update()
     {
         RotateBall();
+         
+        UpdateScoreText();
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -54,7 +62,12 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    void SetBalls(BallColors color, int pos)
+    public void UpdateScoreText()
+    {
+        scoreText.text = $"Player Score: {PlayerScore}";
+    }
+
+    void SetBalls(Ballcolor color, int pos)
     {
         GameObject ball = Instantiate(ballPrefab, 
             ballPositions[pos].transform.position, 
@@ -73,7 +86,7 @@ public class GameManager : MonoBehaviour
     {
         FollowCamera.transform.parent = null;
         Rigidbody rd = cueBall.GetComponent<Rigidbody>();
-        rd.AddRelativeForce(Vector3.forward * ballspeed);
+        rd.AddRelativeForce(Vector3.forward * ballspeed, ForceMode.Impulse);
         ballLine.SetActive(false);
     }
 
@@ -91,7 +104,7 @@ public class GameManager : MonoBehaviour
 
         cueBall.transform.eulerAngles = Vector3.zero;
         CameraBehindBall();
-        cueBall.transform.eulerAngles = new Vector3(40f, 0, 0);
+        FollowCamera.transform.eulerAngles = new Vector3(40f, 0, 0);
         ballLine.SetActive(true);
     }
 }

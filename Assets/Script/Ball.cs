@@ -2,21 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Ballcolor
-{
-    White,
-    Red,
-    Yellow,
-    Green,
-    Brown,
-    Blue,
-    Pink,
-    Nigga,
-}
-
+  public enum Ballcolor
+     {
+          White,
+          Red,
+          Yellow,
+          Green,
+          Brown,
+          Blue,
+          Pink,
+          Nigga,
+     }
 
 public class Ball : MonoBehaviour
 {
+   
       [SerializeField] private int point;
       public int Point 
       {
@@ -24,66 +24,54 @@ public class Ball : MonoBehaviour
       } 
       
       [SerializeField] private Ballcolor ballcolor;
-      [SerializeField] private MeshRenderer _meshRenderer;
+      [SerializeField] private MeshRenderer rd;
       
       private void Awake() 
       {
-        rd = GetComponent<MeshRenderer> rd;
+        rd = GetComponent<MeshRenderer>();
       }
       
-      public void SetColorAndPoint(BallColors color) 
+      public void SetColorAndPoint(Ballcolor color) 
       {
-        swtich (color)
+        switch (color)
         {
-            case BallColor.White:
+            case Ballcolor.White:
                 point =0;
-                rd.material.color = color.white;
+                rd.material.color = Color.white;
                 break;
                 
-           case BallColor.Red:
+           case Ballcolor.Red:
                 point =1;
-                rd.material.color = color.red;
+                rd.material.color = Color.red;
                 break;
                 
-           case BallColor.Yellow:
+           case Ballcolor.Yellow:
                 point =2;
-                rd.material.color = color.yellow;
+                rd.material.color = Color.yellow;
                 break;
                 
-           case BallColor.Green:
+           case Ballcolor.Green:
                 point =3;
-                rd.material.color = color.green;
+                rd.material.color = Color.green;
                 break;
                 
-           case BallColor.Brown:
+           case Ballcolor.Brown:
                 point =4;
                 rd.material.color = new Color32(145, 81,9,255);
                 break; 
                 
-           case BallColor.Blue:
+           case Ballcolor.Blue:
                 point =5;
-                rd.material.color = color.blue;
+                rd.material.color = Color.blue;
                 break;
-           case BallColor.Pink:
-                point =0;
-                rd.material.color = color.magenta;
+           case Ballcolor.Pink:
+                point =6;
+                rd.material.color = Color.magenta;
                 break;    
-           case BallColor.Nigga:
-                point =0;
-                rd.material.color = color.black;
+           case Ballcolor.Nigga:
+                point =7;
+                rd.material.color = Color.black;
                 break;                                                     
         }
       }
-    
-    // Start is called before the first frame update
-    void Start()
-    {
-      
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
